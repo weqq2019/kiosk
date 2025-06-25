@@ -1,0 +1,69 @@
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 依赖目录
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.log
+
+# Docker数据
+mysql_data/
+redis_data/
+
+# 临时文件
+*.tmp
+*.bak
+*.backup
+
+# 测试覆盖率
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 前端构建文件
+frontend/dist/
+frontend/build/
+frontend/.nuxt/
+frontend/.next/
+
+# 硬件SDK文件（通常很大）
+hardware/sdk/*.dll
+hardware/sdk/*.so
+hardware/sdk/*.dylib
+hardware/drivers/*.exe
+
+# 日志文件
+logs/
+*.log 

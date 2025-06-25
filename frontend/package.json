@@ -1,0 +1,88 @@
+{
+  "name": "real-estate-kiosk-frontend",
+  "version": "1.0.0",
+  "description": "不动产自助查询一体机前端应用",
+  "type": "module",
+  "main": "electron/main.js",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "type-check": "vue-tsc --noEmit",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5",
+    "pinia": "^2.1.7",
+    "axios": "^1.6.7",
+    "element-plus": "^2.4.4",
+    "@element-plus/icons-vue": "^2.3.1",
+    "qrcode": "^1.5.3",
+    "@vueuse/core": "^10.7.2",
+    "lodash-es": "^4.17.21",
+    "dayjs": "^1.11.10",
+    "mitt": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vue-tsc": "^1.8.27",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.20.1",
+    "prettier": "^3.2.4",
+    "@types/lodash-es": "^4.17.12",
+    "@types/qrcode": "^1.5.5",
+    "unplugin-auto-import": "^0.17.5",
+    "unplugin-vue-components": "^0.26.0"
+  },
+  "keywords": [
+    "real-estate",
+    "kiosk",
+    "vue3",
+    "electron",
+    "touchscreen",
+    "identity-verification",
+    "government-service"
+  ],
+  "author": "Real Estate Kiosk Team",
+  "license": "Commercial",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/real-estate-kiosk.git"
+  },
+  "build": {
+    "appId": "com.realestate.kiosk",
+    "productName": "不动产自助查询一体机",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "linux": {
+      "target": "AppImage",
+      "category": "Office"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+} 

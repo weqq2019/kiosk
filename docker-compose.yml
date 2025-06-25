@@ -1,0 +1,71 @@
+name: real_estate_kiosk
+
+services:
+  # MySQL数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: real_estate_kiosk_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123
+      MYSQL_DATABASE: real_estate_kiosk
+      MYSQL_USER: kiosk_user
+      MYSQL_PASSWORD: kiosk_password
+      TZ: Asia/Shanghai
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/conf:/etc/mysql/conf.d
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-time-zone='+8:00'
+      --max_connections=1000
+      --innodb_buffer_pool_size=256M
+    networks:
+      - kiosk_network
+
+  # Redis缓存服务（可选，用于会话管理和缓存）
+  redis:
+    image: redis:7-alpine
+    container_name: real_estate_kiosk_redis
+    restart: always
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass "redis_password_123"
+    networks:
+      - kiosk_network
+
+  # phpMyAdmin数据库管理界面（开发环境可选）
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: real_estate_kiosk_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: kiosk_user
+      PMA_PASSWORD: kiosk_password
+      MYSQL_ROOT_PASSWORD: root_password_123
+    ports:
+      - "8090:80"
+    depends_on:
+      - mysql
+    networks:
+      - kiosk_network
+    profiles:
+      - dev  # 只在开发环境启动
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  kiosk_network:
+    driver: bridge 
